@@ -320,6 +320,47 @@ func newContactUserUpdateSelfCommand() *cobra.Command {
 	return cmd
 }
 
+func newContactUserUpdateOwnnessCommand() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "update-ownness",
+		Aliases: []string{"set-ownness"},
+		Short:   "更新用户个人状态",
+		Long:    "更新指定用户的个人状态文本（展示在个人资料与聊天会话中，如「居家办公中」）。执行前需要确认，自动化场景在用户明确授权后传 --yes。",
+		Example: `  dws contact user update-ownness --user-id user001 --ownness-text "居家办公中"`,
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			if err := validateRequiredFlagWithAliases(cmd, "user-id", "id", "userid", "userId"); err != nil {
+				return err
+			}
+			userID := strings.TrimSpace(flagOrFallback(cmd, "user-id", "id", "userid", "userId"))
+			if userID == "" {
+				return fmt.Errorf("--user-id 不能为空")
+			}
+			if err := validateRequiredFlagWithAliases(cmd, "ownness-text", "ownnessText"); err != nil {
+				return err
+			}
+			ownnessText := strings.TrimSpace(flagOrFallback(cmd, "ownness-text", "ownnessText"))
+			if ownnessText == "" {
+				return fmt.Errorf("--ownness-text 不能为空")
+			}
+			if !confirmDangerousAction(cmd, "update user ownness", userID) {
+				return nil
+			}
+			return callMCPTool("user_ownness_update", map[string]any{
+				"userId":      userID,
+				"ownnessText": ownnessText,
+			})
+		},
+	}
+	cmd.Flags().String("user-id", "", "要更新个人状态的用户 userId (必填)")
+	cmd.Flags().String("id", "", "--user-id 的别名")
+	cmd.Flags().String("userid", "", "--user-id 的别名")
+	_ = cmd.Flags().MarkHidden("id")
+	_ = cmd.Flags().MarkHidden("userid")
+	cmd.Flags().String("ownness-text", "", "个人状态文本 (必填)，如 \"居家办公中\"")
+	cli.AnnotateRuntimeRequiredFlags(cmd, "user-id", "ownness-text")
+	return cmd
+}
+
 func newContactAccountUpdateCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "update",
@@ -390,7 +431,7 @@ func newContactCommand() *cobra.Command {
 
 通讯录功能：
   - contact user get-self/search/search-mobile/get: 通讯录用户查询
-  - contact user invite/update/update-self: 邀请与更新员工
+  - contact user invite/update/update-self/update-ownness: 邀请与更新员工
   - contact dept search/get-info/list-children/list-members/create/update: 部门查询与管理
   - contact relation list-my-followings: 特别关注人查询
 
@@ -413,6 +454,7 @@ func newContactCommand() *cobra.Command {
   - 查询用户的部门、主管、管理员权限         → contact user get
   - 修改员工信息（姓名 / 部门 / 直属主管）   → contact user update
   - 更新当前用户自己的 profile（昵称 / 头像） → contact user update-self
+  - 更新用户个人状态（如「居家办公中」）     → contact user update-ownness
   - 邀请员工加入企业                         → contact user invite
   - 查询用户的学历、家庭、银行卡、合同等档案 → contact user profile get
   - 查询离职员工列表                         → contact user dismission search`,
@@ -890,6 +932,7 @@ contact user profile fields 获取可用字段列表。
 	contactUserInviteCmd.Flags().String("depts", "", "员工所属部门列表 JSON 数组（可选），格式: [{\"deptId\":1}]")
 	contactUserUpdateCmd := newContactUserUpdateCommand()
 	contactUserUpdateSelfCmd := newContactUserUpdateSelfCommand()
+	contactUserUpdateOwnnessCmd := newContactUserUpdateOwnnessCommand()
 
 	// ── flags 注册 ───────────────────────────────────────────────
 	contactUserSearchCmd.Flags().String("query", "", "搜索关键词 (必填)")
@@ -907,11 +950,12 @@ contact user profile fields 获取可用字段列表。
 	_ = contactUserGetCmd.Flags().MarkHidden("userid")
 	userCmd.AddCommand(
 		contactUserGetSelfCmd, contactUserSearchCmd, contactUserSearchMobileCmd, contactUserGetCmd,
-		contactUserInviteCmd,     // 邀请员工加入企业
-		contactUserUpdateCmd,     // 修改员工信息
-		contactUserUpdateSelfCmd, // 更新当前用户自己的 profile 信息
-		contactUserProfileCmd,    // 花名册档案
-		contactUserDismissionCmd, // 离职员工
+		contactUserInviteCmd,        // 邀请员工加入企业
+		contactUserUpdateCmd,        // 修改员工信息
+		contactUserUpdateSelfCmd,    // 更新当前用户自己的 profile 信息
+		contactUserUpdateOwnnessCmd, // 更新用户个人状态
+		contactUserProfileCmd,       // 花名册档案
+		contactUserDismissionCmd,    // 离职员工
 	)
 
 	contactDeptSearchCmd.Flags().String("query", "", "搜索关键词 (必填)")

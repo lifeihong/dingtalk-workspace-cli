@@ -389,6 +389,37 @@
       "cli_path": "contact user update-self",
       "runtime_gate": "confirm_dangerous"
     },
+    "contact.user_ownness_update": {
+      "effect": "write",
+      "risk": "medium",
+      "confirmation": "user_required",
+      "idempotency": "idempotent",
+      "interface_mode": "composite",
+      "availability": "available",
+      "interface_reason": "Reviewed unpinned remote adapter: the executable CLI maps personal-status update flags to contact/user_ownness_update, which is absent from the pinned MCP metadata snapshot.",
+      "reviewed": true,
+      "parameters": {
+        "user-id": {
+          "property": "userId",
+          "required": true
+        },
+        "id": {
+          "property": "userId",
+          "required": false
+        },
+        "userid": {
+          "property": "userId",
+          "required": false
+        },
+        "ownness-text": {
+          "property": "ownnessText",
+          "required": true
+        }
+      },
+      "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+      "cli_path": "contact user update-ownness",
+      "runtime_gate": "confirm_dangerous"
+    },
     "contact.shortcut_list_followings": {
       "effect": "read",
       "risk": "low",

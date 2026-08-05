@@ -8666,6 +8666,264 @@
         "用户明确要求更新已有员工的组织信息，且已确认目标 userId 和至少一个修改项"
       ]
     },
+    "contact user update-ownness": {
+      "agent_summary": "更新指定用户的个人状态文本（如「居家办公中」）",
+      "agent_summary_source": "dws-agent-selection/contact",
+      "availability": "available",
+      "avoid_when": [
+        "修改员工组织信息（姓名 / 部门 / 主管）应使用 contact user update；修改当前用户昵称或头像应使用 contact user update-self"
+      ],
+      "confirmation": "user_required",
+      "effect": "write",
+      "effect_source": "agent-hint",
+      "examples": [
+        "dws contact user update-ownness --user-id user001 --ownness-text \"居家办公中\""
+      ],
+      "field_provenance": {
+        "agent_summary": {
+          "value": "更新指定用户的个人状态文本（如「居家办公中」）",
+          "source": "internal/cli/schema_hints/selection/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。",
+          "candidates": [
+            {
+              "value": "更新指定用户的个人状态文本（如「居家办公中」）",
+              "source": "internal/cli/schema_hints/selection/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。"
+            }
+          ]
+        },
+        "availability": {
+          "value": "available",
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+          "candidates": [
+            {
+              "value": "available",
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user."
+            }
+          ]
+        },
+        "avoid_when": {
+          "value": [
+            "修改员工组织信息（姓名 / 部门 / 主管）应使用 contact user update；修改当前用户昵称或头像应使用 contact user update-self"
+          ],
+          "source": "internal/cli/schema_hints/selection/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。",
+          "candidates": [
+            {
+              "value": [
+                "修改员工组织信息（姓名 / 部门 / 主管）应使用 contact user update；修改当前用户昵称或头像应使用 contact user update-self"
+              ],
+              "source": "internal/cli/schema_hints/selection/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。"
+            }
+          ]
+        },
+        "confirmation": {
+          "value": "user_required",
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+          "candidates": [
+            {
+              "value": "user_required",
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user."
+            }
+          ]
+        },
+        "effect": {
+          "value": "write",
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+          "candidates": [
+            {
+              "value": "write",
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user."
+            }
+          ]
+        },
+        "examples": {
+          "value": [
+            "dws contact user update-ownness --user-id user001 --ownness-text \"居家办公中\""
+          ],
+          "source": "internal/cli/schema_hints/selection/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。",
+          "candidates": [
+            {
+              "value": [
+                "dws contact user update-ownness --user-id user001 --ownness-text \"居家办公中\""
+              ],
+              "source": "internal/cli/schema_hints/selection/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。"
+            }
+          ]
+        },
+        "idempotency": {
+          "value": "idempotent",
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+          "candidates": [
+            {
+              "value": "idempotent",
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user."
+            }
+          ]
+        },
+        "interface_mode": {
+          "value": "composite",
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+          "candidates": [
+            {
+              "value": "composite",
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user."
+            }
+          ]
+        },
+        "interface_reason": {
+          "value": "Reviewed unpinned remote adapter: the executable CLI maps personal-status update flags to contact/user_ownness_update, which is absent from the pinned MCP metadata snapshot.",
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+          "candidates": [
+            {
+              "value": "Reviewed unpinned remote adapter: the executable CLI maps personal-status update flags to contact/user_ownness_update, which is absent from the pinned MCP metadata snapshot.",
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user."
+            }
+          ]
+        },
+        "interface_ref": {
+          "value": null,
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "interface_disposition_matrix",
+          "review_reason": "final interface mode composite forbids a direct MCP interface_ref",
+          "candidates": [
+            {
+              "value": null,
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "final interface mode composite forbids a direct MCP interface_ref"
+            }
+          ]
+        },
+        "reviewed": {
+          "value": true,
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+          "candidates": [
+            {
+              "value": true,
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user."
+            },
+            {
+              "value": true,
+              "source": "internal/cli/schema_hints/selection/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": false,
+              "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。"
+            }
+          ]
+        },
+        "risk": {
+          "value": "medium",
+          "source": "internal/cli/schema_hints/metadata/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user.",
+          "candidates": [
+            {
+              "value": "medium",
+              "source": "internal/cli/schema_hints/metadata/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "The reviewed handler requires a target user ID and a non-empty personal status text, confirms, then invokes user_ownness_update for that user."
+            }
+          ]
+        },
+        "use_when": {
+          "value": [
+            "用户明确要求设置或修改自己/指定用户的个人状态文本，且已确认目标 userId 和状态内容"
+          ],
+          "source": "internal/cli/schema_hints/selection/contact.json",
+          "precedence": "reviewed_explicit",
+          "resolution": "highest_precedence",
+          "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。",
+          "candidates": [
+            {
+              "value": [
+                "用户明确要求设置或修改自己/指定用户的个人状态文本，且已确认目标 userId 和状态内容"
+              ],
+              "source": "internal/cli/schema_hints/selection/contact.json",
+              "precedence": "reviewed_explicit",
+              "selected": true,
+              "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。"
+            }
+          ]
+        }
+      },
+      "idempotency": "idempotent",
+      "interface_mode": "composite",
+      "interface_reason": "Reviewed unpinned remote adapter: the executable CLI maps personal-status update flags to contact/user_ownness_update, which is absent from the pinned MCP metadata snapshot.",
+      "reviewed": true,
+      "risk": "medium",
+      "source_refs": [
+        "CommandRegistry:canonical_path=contact.user_ownness_update",
+        "cobra-help:dws contact user update-ownness",
+        "internal/cli/schema_hints/metadata/contact.json",
+        "internal/cli/schema_hints/selection/contact.json",
+        "live-dws-schema:contact.user_ownness_update#FAILED"
+      ],
+      "use_when": [
+        "用户明确要求设置或修改自己/指定用户的个人状态文本，且已确认目标 userId 和状态内容"
+      ]
+    },
     "contact user update-self": {
       "agent_summary": "更新当前登录用户自己的昵称或头像",
       "agent_summary_source": "dws-agent-selection/contact",

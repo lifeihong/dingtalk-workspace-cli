@@ -82,6 +82,10 @@
       "cli_path": "contact user update-self"
     },
     {
+      "canonical_path": "contact.user_ownness_update",
+      "cli_path": "contact user update-ownness"
+    },
+    {
       "canonical_path": "contact.shortcut_list_followings",
       "cli_path": "contact +list-followings"
     },

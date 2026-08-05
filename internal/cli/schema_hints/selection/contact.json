@@ -432,6 +432,25 @@
         "live-dws-schema:contact.self_user_profile_update#FAILED"
       ]
     },
+    "contact.user_ownness_update": {
+      "agent_summary": "更新指定用户的个人状态文本（如「居家办公中」）",
+      "use_when": [
+        "用户明确要求设置或修改自己/指定用户的个人状态文本，且已确认目标 userId 和状态内容"
+      ],
+      "avoid_when": [
+        "修改员工组织信息（姓名 / 部门 / 主管）应使用 contact user update；修改当前用户昵称或头像应使用 contact user update-self"
+      ],
+      "examples": [
+        "dws contact user update-ownness --user-id user001 --ownness-text \"居家办公中\""
+      ],
+      "reviewed": true,
+      "review_reason": "依据新增 Cobra leaf、确认门禁实现审阅个人状态更新的选择边界与无 --yes 合约示例。",
+      "source_refs": [
+        "CommandRegistry:canonical_path=contact.user_ownness_update",
+        "cobra-help:dws contact user update-ownness",
+        "live-dws-schema:contact.user_ownness_update#FAILED"
+      ]
+    },
     "contact.shortcut_list_followings": {
       "agent_summary": "获取当前用户的特别关注列表",
       "use_when": [

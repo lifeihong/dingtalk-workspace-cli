@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "surface_hash": "sha256:60eee8e2f37d6d9d60689efce85082798eb9ad38b7ba7c0b471c3de676a85a16",
-  "source_hash": "sha256:862734fb976a4c9c78d010b7391c74822f37805f5acc650551f4ac60f701c13a",
+  "surface_hash": "sha256:c7ef881eadb929594887992d0c824cf8503acfff83b0c09bda71c99418ce2999",
+  "source_hash": "sha256:3e0c27ad1dc71919a9a3c9f6dac6e36825b978349f8887be6e905a189719a973",
   "catalog": {
     "agent_metadata": {
       "products_with_metadata": 26,
       "source": "embedded-skill-metadata",
-      "source_hash": "sha256:670ca810a83bf2aa6f387a18c3af746393d5ea9de24570cbcebbcf994eb7b613",
-      "surface_hash": "sha256:60eee8e2f37d6d9d60689efce85082798eb9ad38b7ba7c0b471c3de676a85a16",
+      "source_hash": "sha256:71b3e44ad17eb910212abd1f4d747f9a05b5f4f23c2b51544ef443978819a957",
+      "surface_hash": "sha256:c7ef881eadb929594887992d0c824cf8503acfff83b0c09bda71c99418ce2999",
       "surface_products": 26,
-      "surface_tools": 845,
-      "tools_with_agent_summary": 845,
-      "tools_with_metadata": 845,
+      "surface_tools": 846,
+      "tools_with_agent_summary": 846,
+      "tools_with_metadata": 846,
       "unmatched_skill_tools": 122,
       "version": 1
     },
@@ -11510,7 +11510,7 @@
         "id": "contact",
         "name": "通讯录 / 用户 / 部门 / 角色 / 人员关系",
         "runtime": true,
-        "tool_count": 34,
+        "tool_count": 35,
         "tools": [
           {
             "agent_metadata_source": "embedded-skill-metadata",
@@ -12466,6 +12466,33 @@
             "title": "按姓名列出某人所在部门的成员（自动解析 userId 与 deptId）",
             "use_when": [
               "当你只知道某位同事的姓名、想知道 TA 所在部门里都有哪些成员时使用；内部先按姓名解析出唯一 userId，再取 TA 的组织信息拿到主部门 deptId，最后打印该部门的直接成员列表（仅本部门，不递归下级部门）。只读，不做任何修改。"
+            ]
+          },
+          {
+            "agent_metadata_source": "embedded-skill-metadata",
+            "agent_summary": "更新指定用户的个人状态文本（如「居家办公中」）",
+            "agent_summary_source": "dws-agent-selection/contact",
+            "availability": "available",
+            "avoid_when": [
+              "修改员工组织信息（姓名 / 部门 / 主管）应使用 contact user update；修改当前用户昵称或头像应使用 contact user update-self"
+            ],
+            "canonical_path": "contact.user_ownness_update",
+            "cli_name": "update-ownness",
+            "cli_path": "contact user update-ownness",
+            "confirmation": "user_required",
+            "description": "更新指定用户的个人状态文本（展示在个人资料与聊天会话中，如「居家办公中」）。执行前需要确认，自动化场景在用户明确授权后传 --yes。",
+            "effect": "write",
+            "group": "user",
+            "idempotency": "idempotent",
+            "interface_mode": "composite",
+            "interface_reason": "Reviewed unpinned remote adapter: the executable CLI maps personal-status update flags to contact/user_ownness_update, which is absent from the pinned MCP metadata snapshot.",
+            "name": "user_ownness_update",
+            "primary_cli_path": "contact user update-ownness",
+            "reviewed": true,
+            "risk": "medium",
+            "title": "更新用户个人状态",
+            "use_when": [
+              "用户明确要求设置或修改自己/指定用户的个人状态文本，且已确认目标 userId 和状态内容"
             ]
           }
         ],
@@ -26644,6 +26671,6 @@
       }
     ],
     "source": "embedded-command-catalog",
-    "tool_count": 845
+    "tool_count": 846
   }
 }
